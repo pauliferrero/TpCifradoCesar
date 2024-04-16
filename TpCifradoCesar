@@ -1,0 +1,60 @@
+using System;
+
+class Program{
+  static string alfabeto = "abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ1234567890_-+,#$%&/()=¿?¡!|,.;:{}[]";
+  
+  static string Encrypt(string mensaje, int salto){ 
+    string mensajeEncriptado = "";
+    foreach (char c in mensaje){
+      int index = alfabeto.IndexOf(c); 
+      if (index != -1){
+          int saltoIndex = (index + salto) % alfabeto.Length;
+          char saltoChar = alfabeto[saltoIndex];
+          mensajeEncriptado += saltoChar;
+      } else {
+        throw new ArgumentException("Error: El carácter '" + c + "' no se encontró en el alfabeto.");
+      }
+    }
+    return mensajeEncriptado;
+  }
+
+  static string Decrypt(string mensajeEncriptado, int salto) {
+    string mensajeDesencriptado = "";
+
+    foreach (char c in mensajeEncriptado) {
+      int index = alfabeto.IndexOf(c);
+      if (index != -1) {
+        int saltoIndex = (index - salto + alfabeto.Length) % alfabeto.Length; // sumo alfabeto para que no de negativo
+        char saltoChar = alfabeto[saltoIndex];
+        mensajeDesencriptado += saltoChar;
+      } else {
+        throw new ArgumentException("Error: El carácter '" + c + "' no se encontró en el alfabeto.");
+      }
+    }
+    return mensajeDesencriptado;
+  }
+
+  public static void Main(){
+    int salto = 7;
+    //Ejercicio 1
+    Console.WriteLine("Ingrese mensaje a cifrar:");
+    string msj = Console.ReadLine();
+    while (string.IsNullOrEmpty(msj)) {
+      Console.WriteLine("Ingrese un mensaje no vacio");
+      msj = Console.ReadLine();
+    }
+    string mensajeEncriptado = Encrypt(msj, salto);
+    Console.WriteLine("Mensaje cifrado: " + mensajeEncriptado);
+    //Ejercicio 2
+    Console.WriteLine("Ingrese mensaje cifrado:");
+    string mensj = Console.ReadLine();
+    while (string.IsNullOrEmpty(msj)) {
+      Console.WriteLine("Ingrese un mensaje no vacio");
+      mensj = Console.ReadLine();
+    }
+    string mensajeDesencriptado = Decrypt(mensj, salto);
+    Console.WriteLine("Mensaje desencriptado: " + mensajeDesencriptado);
+    
+    Program program = new Program();
+  }
+}
