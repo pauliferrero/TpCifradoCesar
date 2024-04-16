@@ -35,7 +35,8 @@ class Program{
   }
 
   public static void Main(){
-    int salto = 7;
+    Console.WriteLine("Ingrese el salto de indice para encriptar: ");
+    int salto = Convert.ToInt32(Console.ReadLine());
     //Ejercicio 1
     Console.WriteLine("Ingrese mensaje a cifrar:");
     string msj = Console.ReadLine();
